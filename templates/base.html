@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Times:wght@400;500;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="{{ url_for('static', filename='custom.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
+
+    <!-- <style>
+        body {
+            background-color: #2C2C2C; /* Dark gray background */
+            color: #FFFFFF; /* White text */
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    
+        .navbar {
+            background-color: #4a0072 !important; /* Purple for the navigation bar */
+            color: #050000; /* White text for contrast */
+            width: 100%;
+        }
+
+        .navbar a {
+            color: #ffffff !important; /* White links */
+        }
+
+        
+
+        .footer {
+            background-color: #0e0d0d; /* Darker gray background */
+            color: #160101; /* White text for better contrast */
+            border-top: 5px solid #4a0072; /* Purple border to match theme */
+            width: 100%;
+            margin-top: 1000px;
+            padding-top: 100px;
+        }
+    
+        .footer h3 {
+            color: rgb(22, 4, 4); /* White footer headings */
+        }
+    
+        .btn-primary {
+            background-color: #4169E1; /* Royal blue buttons */
+            border-color: #4169E1;
+        }
+    
+        .btn-primary:hover {
+            background-color: #5A87F0; /* Slightly lighter blue on hover */
+            border-color: #5A87F0;
+        }
+
+        a {
+            color: #4169E1; /* Royal blue links */
+        }
+    
+        a:hover {
+            color: #5A87F0; /* Slightly lighter blue on hover */
+        }
+    
+        .content-section {
+            background-color: #1C1C1C; /* Slightly lighter dark gray */
+            color: #C0C0C0; /* Metallic silver text */
+            padding: 20px;
+            border-radius: 20px; /* Add soft corners */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            margin: 100px auto 0 auto; /* Add margin to separate from the purple section */
+            margin-bottom: 150px; /* Pushes the footer down */
+        }
+    
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+    </style> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='custom.css') }}">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary bg-primary-subtle border border-primary-subtle">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url_for('index') }}">
+                <img src="https://i.ibb.co/VxhwCbX/nice.png"
+                    alt="Bootstrap" width="63">
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-primary-emphasis" href="{{ url_for('case_studies') }}">
+                            Case Studies
+                        </a>
+                    </li>
+                    {% if not current_user.is_authenticated %}
+                    <li class="nav-item text-primary-emphasis">
+                        <a class="nav-link text-primary-emphasis" href="{{ url_for('login') }}">
+                            Login
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-primary-emphasis" href="{{ url_for('register') }}">
+                            Register
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link text-primary-emphasis" href="{{ url_for('logout') }}">
+                            Log out ({{ current_user.username }})
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-dark m-3" role="alert">{{ message }}</div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+
+    <footer class="footer1 row mt-5 p-5">
+        <div class="col">
+            <a href="https://imgbb.com/"><img src="https://i.ibb.co/8dfnNv8/download-14-removebg-preview.png" alt="download-14-removebg-preview" border="0" width="77"></a>
+           <p class="">© 2024</p>
+        </div>
+
+        <div class="col">
+            <h3>Educational Tools</h3>
+            <ul>
+                <li>AI Analysis Engine: Utilizing the <a href="https://openai.com/" target="_blank" rel="noopener noreferrer">OpenAI API</a>.</li>
+                <li>Database of Practical Cases: Accessible archive of <a href="https://www.thecasecentre.org/default%20" target="_blank" rel="noopener noreferrer">case studies</a> previously generated.</li>
+                <li>Collaborative Space: A <a href="new-link-Collaborative-Space" target="_blank" rel="noopener noreferrer">forum</a> for sharing ideas.</li>
+            </ul>
+        </div>
+
+        <div class="col">
+            <h3>About Us</h3>
+            <p> 
+                This platform was developed to offer a modern and interactive educational experience in engineering. 
+                It provides advanced analysis tools and a diverse library of case studies to facilitate dynamic and intuitive learning. 
+                The goal is to create a space where users can access valuable resources, explore new ideas, and enhance their skills.
+            </p>
+        </div>
+         
+
+        <div class="col">
+            <h3>Contact</h3>
+            <ul>
+                <li><a href="mailto:nour.mazouz@centrale-casablanca.ma">Nour Mazouz</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

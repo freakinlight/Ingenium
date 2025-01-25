@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Discussion{% endblock %}
+
+{% block content %}
+<div class="custom-input custom-input:focus">
+    <div class="card">
+        {{ case_study.title }}
+    </div>
+    <div class="card-body btn-custom btn-custom:hover form-control::placeholder">
+        <p class="card-title">{{ case_study.description }}</p>
+        <p class="card-text">{{ case_study.content }}</p>
+        <a href="{{ url_for('take_quiz', id=case_study.id) }}" class="btn btn-secondary">Take a quiz</a>
+    </div>
+    <div class="card-footer text-body-secondary">
+        Added on {{ case_study.date_posted.strftime('%Y-%m-%d') }} by {{ case_study.author }} in <strong>{{
+            case_study.tag }}</strong>
+    </div>
+</div>
+<hr class="bg-dark border-2 border-top border-dark" />
+{% for comment in comments %}
+<div class="card text-bg-light row col-8 m-3 mx-5">
+    <div class="card-header text-body-secondary">
+        {{ comment.author_name.username }} le {{ comment.timestamp.strftime('%Y-%m-%d') }}
+    </div>
+    <div class="card-body btn-custom btn-custom:hover form-control::placeholder">
+        <p class="card-text">{{ comment.content }}</p>
+        {% if current_user.id == comment.author_name.id %}
+        <a href="{{ url_for('delete_comment', case_study_id=case_study.id, comment_id=comment.id) }}"
+            class="btn btn-danger">Delete</a>
+        {% endif %}
+    </div>
+</div>
+{% endfor %}
+
+<div class="card">
+    <div class="card-header text-body-secondary">
+        Add a Comment
+    </div>
+    <div class="card-body">
+        <form action="{{ url_for('create_comment', id=case_study.id) }}" method="post" enctype="multipart/form-data"
+            novalidate>
+            <fieldset>
+                {{ comment_form.hidden_tag() }}
+
+                {{ comment_form.content(class='form-control') }}
+
+                <label></label>
+                {{ comment_form.submit(class='form-control') }}
+            </fieldset>
+        </form>
+    </div>
+</div>
+{% endblock %}

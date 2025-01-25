@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Case Studies{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-100 row row-cols-100 row-cols-md-30 g-3 p-2">
+        {% for case_study in case_studies %}
+        <div class="col2">
+            <div class="card2">
+                <div class="card2-body input">
+                    <h5 class="card2-title">{{ case_study.title }}</h5>
+                    <p class="card2-text">{{ case_study.description }}</p>
+                    <a href="{{ url_for('case_study', id=case_study.id) }}" class="btn btn-secondary">Learn more</a>
+                    {% if current_user.id == case_study.author_id %}
+                    <a href="{{ url_for('delete_case_study', id=case_study.id) }}" class="btn btn-danger">Delete</a>
+                    {% endif %}
+                </div>
+                <div class="card2-footer text-body-secondary">
+                    Added on {{ case_study.date_posted.strftime('%Y-%m-%d') }} by {{ case_study.author }} in
+                    <strong>{{ case_study.tag }}</strong>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class="col1">
+            <div class="card1">
+                <div class="card1-header">
+                    Create a Case Study
+                </div>
+                <div class="card1-body input">
+                    <form action="{{ url_for('create_case_study') }}" method="post" enctype="multipart/form-data"
+                        novalidate>
+                        <fieldset>
+                            {{ case_study_form.hidden_tag() }}
+
+                            {{ case_study_form.title.label(class='form-label') }}
+                            {{ case_study_form.title(class='form-control') }}
+
+                            {{ case_study_form.description.label(class='form-label') }}
+                            {{ case_study_form.description(class='form-control') }}
+
+                            {{ case_study_form.tag.label(class='form-label') }}
+                            {{ case_study_form.tag(class='form-control') }}
+
+                            {{ case_study_form.pdf_file.label(class='form-label') }}
+                            {{ case_study_form.pdf_file(class='form-control') }}
+
+                            <label></label>
+                            {{ case_study_form.submit(class='form-control') }}
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

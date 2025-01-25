@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="custom-input custom-input:focus">
+    <div class="card">
+        <div class="card-body btn-custom btn-custom:hover form-control::placeholder">
+            <h5 class="card-title">Login</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">Welcome to Ingenium, where innovation finds its spark and thrives.</h6>
+            <div class="card-text">
+                Dive into the heart of enriching research, where our detailed analyses illuminate the path to practical solutions and insightful decisions.
+            </div>
+            <hr>
+            <form action="" method="post" novalidate>
+                <fieldset>
+                    {{ form.hidden_tag() }}
+
+                    {{ form.username.label(class='form-label') }}
+                    {{ form.username(class='form-control') }}
+
+                    {{ form.password.label(class='form-label') }}
+                    {{ form.password(class='form-control') }}
+
+                    <label></label>
+                    {{ form.submit(class='form-control') }}
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

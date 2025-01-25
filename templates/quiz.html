@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="custom3-input custom3-input:focus">
+    <div class="card3">
+        <div class="card3-body btn3-custom btn3-custom:hover form3-control::placeholder">
+            <h5 id="haut" class="card3-title">10-Question Quiz</h5>
+            <h6 class="card3-subtitle mb-2 text-body-secondary">{{ case_study.title }}</h6>
+
+            <div id="guide">
+                <ul>
+                    <li>You have 15 seconds for each question.</li>
+                    <li>Your answer cannot be changed once selected.</li>
+                    <li>You will earn points based on your correct answers.</li>
+                </ul>
+                <button class="btn btn-secondary" id="start">Start the Quiz</button>
+            </div>
+
+            <div id="quiz" style="display:none;">
+                <div id="quiz_header">
+                    <div id="timer">
+                        <h6>Time remaining: <span id="time">15</span></h6>
+                    </div>
+                </div>
+
+                <h4 id="question">
+                    <span id="questionNo">
+                    </span>
+                    <span id="questionText">
+                    </span>
+                </h4>
+
+                <div id="optionList">
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                        <button class="btn btn-outline-primary row choice_que" id="option1"></button>
+                        <button class="btn btn-outline-primary row choice_que" id="option2"></button>
+                        <button class="btn btn-outline-primary row choice_que" id="option3"></button>
+                        <button class="btn btn-outline-primary row choice_que" id="option4"></button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="result" style="display:none;">
+                <h6>You have completed the quiz!</h6>
+                <h6 id="points">Your score is: ??? out of 10</h6>
+                <h5>Thank you for participating in this quiz.</h5>
+                <button class="btn btn-secondary m-1" id="startAgain">Start Over</button>
+                <a class="btn btn-secondary row m-1" href="{{ url_for('case_study', id=id) }}">Go Back</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('quiz_questions', id=id) }}"></script>
+<script src="{{ url_for('static', filename='js/quiz.js') }}"></script>
+{% endblock %}

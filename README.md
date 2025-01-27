@@ -110,8 +110,7 @@ Contributions are welcome! Please submit issues or pull requests to improve the 
 ## Contact
 - **Developer**: Nour Mazouz  
 - **Email**: mazouznour0@gmail.com  
-- **GitHub Repository**: [Ingenium](https://github.com/freakinlight/Ingenium)  
-- **Demo**:   
+- **GitHub Repository**: [Ingenium](https://github.com/freakinlight/Ingenium)     
 
 ---
 
